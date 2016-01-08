@@ -1,0 +1,5 @@
+if [ -n "$1" ]; then
+    ../vendor/bin/phpunit $1
+else
+    ../vendor/bin/phpunit unit/
+fi
