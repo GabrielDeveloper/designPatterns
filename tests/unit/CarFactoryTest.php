@@ -4,6 +4,8 @@ namespace App\Test;
 
 use \PHPUnit_Framework_TestCase;
 use App\Factory\FactoryCar;
+use App\Factory\Car;
+
 
 class CarFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -45,6 +47,25 @@ class CarFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($car->getInformation(), "Corola - 2010");
     
+    }
+
+    public function getCarFusion()
+    {
+        $fusion = new Car("Fusion", 2016);
+        $fusion->turnOn();
+
+        return [[$fusion]];
+    }
+
+    /**
+     * @dataProvider getCarFusion
+     */
+    public function testVerifyCar(Car $car)
+    {
+        $car->turnOn();
+        
+        $this->assertTrue($car->getState());
+        $this->assertEquals($car->getStateToString(), "Ligado");
     }
 
 }
