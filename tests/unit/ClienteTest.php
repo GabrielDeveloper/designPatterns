@@ -3,14 +3,14 @@
 namespace src\tests;
 
 use \PHPUnit_Framework_TestCase;
-use App\Cliente;
+use App\PHPUnit\Cliente;
 
 class ClienteTeste extends PHPUnit_Framework_TestCase
 {
 
     public function testRetornaModelo()
     {
-        $cliente = new \App\Cliente;
+        $cliente = new Cliente;
         $this->assertTrue($cliente != null);
     }
 
