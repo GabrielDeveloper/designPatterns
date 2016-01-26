@@ -3,9 +3,11 @@
 include_once('vendor/autoload.php');
 
 use App\Repository\UserController;
-use App\Repository\UserActiveRecord;
-use App\Repository\UserTableGatway;
+use App\Repository\UserRepositoryActiveRecord;
+use App\Repository\UserRepositoryTableGateway;
 
-$user = new UserController(new UserTableGatway);
-//$user->index();
+$user = new UserController(new UserRepositoryTableGateway);
 $user->actives();
+
+$user2 = new UserController(new UserRepositoryActiveRecord);
+$user2->index();

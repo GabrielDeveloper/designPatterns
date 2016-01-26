@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-class UserTableGatway
+class UserTableGateway
 {
 
     public function getAll()
@@ -14,4 +14,5 @@ class UserTableGatway
             ['name' => "Hulk", 'email' => "hulk@gmail.com", 'active' => false],
         ];
     }
+
 }

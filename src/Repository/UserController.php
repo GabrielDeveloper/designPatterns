@@ -2,14 +2,14 @@
 
 namespace App\Repository;
 
-use App\Repository\UserRepository;
+use App\Repository\UserModel;
 
 class UserController
 {
 
     public function __construct($user)
     {
-        $this->user = new UserRepository($user);
+        $this->user = new UserModel($user);
     }
 
     public function index()

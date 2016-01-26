@@ -3,14 +3,14 @@
 namespace App\Test\Repository;
 
 use \PHPUnit_Framework_TestCase;
-use App\Repository\UserRepository;
+use App\Repository\UserRepositoryTableGateway;
 
 class UserRepositoryTest extends PHPUnit_Framework_TestCase
 {
     public function testRetornaModelo()
     {
         $mock = $this->getMock('\App\Repository\UserTableGatway');
-        $model = new UserRepository($mock);
+        $model = new UserRepositoryTableGateway($mock);
         $this->assertTrue($model != null);
     }
 
