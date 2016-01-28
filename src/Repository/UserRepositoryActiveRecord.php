@@ -12,16 +12,43 @@ class UserRepositoryActiveRecord extends UserActiveRecord implements UserReposit
     protected $user;
 
     public function findAllUsers()
-    { 
-        return parent::findAll();
+    {
+        $result = [];
+        $usersData = parent::findAll();
+        foreach ($usersData as $data) {
+            $user = new UserModel;
+            $user->setId($data['id']);
+            $user->setName($data['name']);
+            $user->setEmail($data['email']);
+            $user->setActive($data['active']);
+
+            $result[] = $user;
+        }
+        return $result;
     }
 
     public function findAllActives()
     {
-        $model = new UserModel;
-        $result = $model->findAllActives(parent::findAll());
-
+        $result = [];
+        foreach ($this->findAllUsers() as $user) {
+            if ($user->getActive() == true) {
+                $result[] = $user;
+            }
+        }
         return $result;
+    }
+
+    public function findById($id)
+    {
+        $data = parent::findOne($id);
+
+        $user = new UserModel;
+        $user->setId($data['id']);
+        $user->setName($data['name']);
+        $user->setEmail($data['email']);
+        $user->setActive($data['active']);
+
+        return $user;
     }
 
 }

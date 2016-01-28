@@ -4,37 +4,50 @@ namespace App\Repository;
 
 class UserModel
 {
-    public $user;
+    private $id;
+    private $name;
+    private $email;
+    private $password;
+    private $active;
 
-    public function __construct(UserRepositoryInterface $user)
+    public function getId()
     {
-        $this->user = $user;
+        return $this->id;
     }
 
-    public function findAll()
+    public function setID($id)
     {
-        return $this->user->findAllUsers();
+        $this->id = $id;
     }
 
-    public function findAllActives()
+    public function getName()
     {
-        $result = [];
-        foreach ($this->findAll() as $user) {
-            if ($user['active'] == true) {
-                $result[] = $user;
-            }
-        }
-        return $result;    
+        return $this->name;
     }
 
-    public function findActivesToArray($array)
+    public function setNAme($name)
     {
-        $result = [];
-        foreach ($array as $user) {
-            if ($user['active'] == true) {
-                $result[] = $user;
-            }
-        }
-        return $result;
+        $this->name = $name;
     }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
 }

@@ -7,4 +7,6 @@ interface UserRepositoryInterface
 
     public function findAllUsers();
 
+    public function findById($id);
+
 }
