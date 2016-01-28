@@ -3,29 +3,70 @@
 namespace App\Test\Repository;
 
 use \PHPUnit_Framework_TestCase;
-use App\Repository\UserRepositoryTableGateway;
+use App\Repository\UserDomain\UserRepository;
+use App\Repository\Zend\UserTableGatway;
 
 class UserRepositoryTest extends PHPUnit_Framework_TestCase
 {
-    public function testRetornaModelo()
+    public function testRetornaUmArrayDeObjetosDoTipoUserModel()
     {
-        $mock = $this->getMock('\App\Repository\UserTableGatway');
-        $model = new UserRepositoryTableGateway($mock);
+        $array = [
+            ["id" => 1, "name" => "Gabriel", "email" => "gabriel@gmail.com", 'active' => true],
+            ["id" => 1, "name" => "João", "email" => "joao@gmail.com", 'active' => false],
+        ];
+
+        $mock = $this->getMock('\App\Repository\Zend\UserTableGateway');
+        $mock->method('findAll')
+             ->willReturn($array);
+
+        $model = new UserRepository($mock);
+        $result = $model->findAllUsers();
+        $this->assertEquals(count($result), 2);
+        foreach ($result as $data) {
+            $this->assertInstanceOf('App\Repository\UserDomain\UserModel', $data);
+        }
         $this->assertTrue($model != null);
     }
 
     public function testRetornaUsuarioAtivos()
     {
-        /*$array = [
-            ["name" => "Gabriel", 'active' => true],
-            ["name" => "João", 'active' => false],
+        $array = [
+            ["id" => 1, "name" => "Gabriel", "email" => "gabriel@gmail.com", 'active' => true],
+            ["id" => 1, "name" => "João", "email" => "joao@gmail.com", 'active' => false],
+        ];
+        
+        $mock = $this->getMock('\App\Repository\Zend\UserTableGateway');
+        $mock->method('findAll')
+             ->willReturn($array);
+
+        $model = new UserRepository($mock);
+        $result = $model->findAllActives();
+        $this->assertTrue(count($result) == 1);
+        foreach ($result as $data) {
+            $this->assertEquals($data->getName(), "Gabriel");
+            $this->assertEquals($data->getEmail(), "gabriel@gmail.com");
+            $this->assertEquals($data->getId(), 1);
+            $this->assertInstanceOf('App\Repository\UserDomain\UserModel', $data);
+        }
+    }
+
+    public function testRetornaApenasOUsuarioBuscadoPeloId()
+    {
+        $array = [
+            ["id" => 2, "name" => "João", "email" => "joao@gmail.com", 'active' => false],
         ];
 
-        $model = new UserModel;
-        $results = $model->findAllActives($array);
-        $this->assertTrue(count($results) == 1);
-        foreach ($results as $data) {
-            $this->assertEquals($data['name'], "Gabriel");
-        }*/
+        $mock = $this->getMock('\App\Repository\Zend\UserTableGateway');
+        $mock->method('findById')
+             ->willReturn($array);
+        
+        $model = new UserRepository($mock);
+        $result = $model->findById(2);
+        $this->assertTrue(count($result) == 1);
+        foreach ($result as $data) {
+            $this->assertEquals($data->getName(), "João");
+            $this->assertInstanceOf('App\Repository\UserDomain\UserModel', $data);
+        }
+
     }
 } 

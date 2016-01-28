@@ -1,27 +1,28 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\UserDomain;
 
-use App\Repository\UserRepositoryInterface;
-use App\Repository\UserModel;
-use App\Repository\UserTableGateway;
-
-class UserRepositoryTableGateway extends UserTableGateway implements UserRepositoryInterface
+class UserRepository
 {
 
-    protected $user;
+    public $storage;
+
+    public function __construct(Storage $storage)
+    {
+        $this->storage = $storage;
+    }
 
     public function findAllUsers()
     {
+        $usersData = $this->storage->findAll();
         $result = [];
-        $usersData = parent::getAll();
         foreach ($usersData as $data) {
             $user = new UserModel;
             $user->setId($data['id']);
             $user->setName($data['name']);
             $user->setEmail($data['email']);
             $user->setActive($data['active']);
-            
+
             $result[] = $user;
         }
         return $result;
@@ -40,7 +41,7 @@ class UserRepositoryTableGateway extends UserTableGateway implements UserReposit
 
     public function findById($id)
     {
-        $data = parent::getOne($id);
+        $data = $this->storage->findById($id);
 
         $user = new UserModel;
         $user->setId($data['id']);
@@ -50,4 +51,5 @@ class UserRepositoryTableGateway extends UserTableGateway implements UserReposit
 
         return $user;
     }
+
 }

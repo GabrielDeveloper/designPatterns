@@ -2,19 +2,25 @@
 
 namespace App\Repository;
 
-use App\Repository\UserModel;
+use App\Repository\UserDomain\UserModel;
+use App\Repository\UserDomain\UserRepository;
+use App\Repository\UserDomain\Storage;
 
 class UserController
 {
 
-    public function __construct(UserRepositoryInterface $user)
+    public $dataStorage;
+    public $user;
+
+    public function __construct(Storage $storage)
     {
-        $this->user = $user;
+        $this->user = new UserRepository($storage);
+        
     }
 
     public function index()
     {
-        var_dump($this->user->findAllUsers());
+        var_dump($this->user->findAllUsers());   
     }
 
     public function actives()

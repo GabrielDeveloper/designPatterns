@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\UserDomain;
 
 interface UserRepositoryInterface
 {
 
-    public function findAllUsers();
+    public function findAll();
 
     public function findById($id);
 
