@@ -4,7 +4,7 @@ namespace App\Test\Repository;
 
 use \PHPUnit_Framework_TestCase;
 use App\Repository\PostDomain\PostRepository;
-use App\Repository\Zend\UserTableGatway;
+use App\Repository\Zend\PostTableGateway;
 
 class PostRepositoryTest extends PHPUnit_Framework_TestCase
 {
