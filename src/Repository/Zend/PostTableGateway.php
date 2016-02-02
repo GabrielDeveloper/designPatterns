@@ -18,7 +18,7 @@ class PostTableGateway extends TableGateway implements Storage
 
     public function setTable()
     {
-        $this->table = "users";
+        $this->table = "posts";
     }
 
     public function findAll()

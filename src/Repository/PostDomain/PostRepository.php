@@ -12,17 +12,16 @@ class PostRepository
         $this->storage = $storage;
     }
 
-     public function findAllPosts()
+    public function findAllPosts()
     {
         $usersData = $this->storage->findAll();
-        return $usersData;
         $result = [];
         foreach ($usersData as $data) {
-            $user = new UserModel;
+            $user = new PostModel;
             $user->setId($data['id']);
-            $user->setName($data['name']);
-            $user->setEmail($data['email']);
-            $user->setActive($data['active']);
+            $user->setTitle($data['title']);
+            $user->setContent($data['content']);
+            $user->setAuthor($data['author']);
 
             $result[] = $user;
         }
