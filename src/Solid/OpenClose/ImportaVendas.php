@@ -5,16 +5,11 @@ namespace App\Solid\OpenClose;
 class ImportaVendas implements Importation
 {
 
-    public function setConfig(Array $config)
+    public function import(LayoutInterface $layout)
     {
-        foreach ($config as $key => $value) {
-            $this->$key = $value;
-        }
-    }
+        $this->layout = $layout;
 
-    public function import($itens)
-    {
-        foreach ($itens as $iten) {
+        foreach ($this->layout->getItensVenda() as $iten) {
             $cadastrado = array_shift($iten);
             if ($cadastrado) {
                 $this->saveProdutosCadastrados($iten);
